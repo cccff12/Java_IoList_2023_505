@@ -25,6 +25,12 @@ oracle 12c 이상에서 사용자에 대한 권한정책이 변경되었다.
 system과 관련된 몇 가지 사항을 기본으로 접근하지 못하도록 하고 있다.
 
 사용자 ID, TABLESPACE 접근 권한을 12c이전으로 되돌리는 설정
+
+CREATE USER C##iolist IDENTIFIED BY 12341234
+DEFAULT TABLESPACE iolist;
+
+
+이 설정은 사용자를 만드는 경우 항상 실행해 주어야 한다.
 */
 
 ALTER SESSION SET "_ORACLE_SCRIPT"= TRUE;
@@ -38,7 +44,15 @@ ALTER SESSION SET "_ORACLE_SCRIPT"= TRUE;
 
 CREATE USER iolist IDENTIFIED BY 12341234
 DEFAULT TABLESPACE iolist;
+/*
+생성한 iolist 사용자가 
+DB에 접속하고, TABLE을 생성하고 , CRUD를 실행하는 부분
+각각 별도의 권한 정책에 의하여 허가를 해주어야 한다.
+학습목적상 세세한 권한 정책을 부여하기가 불편하기 때문에 
+Oracle 의 SYSDBA(SYSTEM)권한보다 한 단계 낮은 DBA권한을 부여한다
+DBA권한은 Oracle System 설정을 변경하는 것 외에 대부분의 권한을 갖는다.
 
-
+*/
+GRANT DBA TO iolist;
 
 
