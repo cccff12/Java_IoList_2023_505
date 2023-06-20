@@ -108,7 +108,9 @@ public class BuyerServiceImplV2 extends BuyerServiceImplV1 {
 			}
 			break;
 		} // while end
+
 		HelpMessage.ALERT("고객 아이디 확인 : " + buyerDto.buId);
+//	고객이름 입력하기
 		while (true) {
 			String prompt = buyerDto == null || buyerDto.buName == null ? "새로운 고객 이름"
 					: String.format("고객명 수정(%s): 유지하려면 enter", buyerDto.buName);
@@ -122,7 +124,64 @@ public class BuyerServiceImplV2 extends BuyerServiceImplV1 {
 			} else if (!strName.isEmpty()) {
 				buyerDto.buName = strName;
 			}
+
+			break;
+		} // while end
+		HelpMessage.ALERT("입력한 고객 이름 확인 " + buyerDto.buName);
+
+//	전화번호 입력하기
+		while (true) {
+			String prompt = buyerDto == null || buyerDto.buTel == null ? "새로운 전화번호"
+					: String.format("전화번호 수정(%s): 유지하려면 enter", buyerDto.buTel);
+			System.out.println(prompt);
+			String strTel = scan.nextLine();
+			if (strTel.equals("QUIT"))
+				return;
+			if (buyerDto.buName == null && strTel.isEmpty()) {
+				HelpMessage.ERROR("전화번호는 반드시 입력해야 합니다.");
+				continue;
+			} else if (!strTel.isEmpty()) {
+				buyerDto.buName = strTel;
+			}
+
+			break;
+		} // while end
+		HelpMessage.ALERT("입력한 전화번호 확인 " + buyerDto.buTel);
+
+//		주소 입력하기
+		while (true) {
+			String prompt = buyerDto == null || buyerDto.buTel == null ? "새로운 주소"
+					: String.format("주소 수정(%s): 유지하려면 enter", buyerDto.buAddr);
+			System.out.println(prompt);
+			String strAddr = scan.nextLine();
+			if (strAddr.equals("QUIT"))
+				return;
+			if (buyerDto.buAddr == null && strAddr.isEmpty()) {
+				HelpMessage.ERROR("주소는 반드시 입력해야 합니다.");
+				continue;
+			} else if (!strAddr.isEmpty()) {
+				buyerDto.buAddr = strAddr;
+			}
+			break;
+		} // while end
+		HelpMessage.ALERT("입력한 주소 확인 " + buyerDto.buAddr);
+		String okMessage = String.format("고객 ID:%s\n 고객이름:%s\n 전화번호:%s\n 주소:%s\n", buyerDto.buId, buyerDto.buName,
+				buyerDto.buTel, buyerDto.buAddr);
+		HelpMessage.ALERT(okMessage);
+		int result = 0;
+		try {
+			result = buyerDao.insert(buyerDto);
+			if (result > 0) {
+				HelpMessage.OK("데이터 추가 ok");
+			}
+		} catch (Exception e) {
+			result = buyerDao.update(buyerDto);
+			if (result > 0) {
+				HelpMessage.OK("데이터 수정 ok");
+			}
+			if (result < 1) {
+				HelpMessage.ERROR("데이터 추가, 수정 실패");
+			}
 		}
 	}
-
 }

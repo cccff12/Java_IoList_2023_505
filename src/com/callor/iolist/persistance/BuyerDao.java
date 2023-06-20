@@ -27,7 +27,7 @@ public interface BuyerDao {
 	@Insert(BuyerSQL.INSERT)
 	public int insert(BuyerDto dto);
 	
-	@Update(BuyerSQL.INSERT)
+	@Update(BuyerSQL.UPDATE)
 	public int update(BuyerDto dto);
 
 	@Delete(" DELETE FROM " + DBContract.TABLE.BUYER + " WHERE buid= #{id} ")

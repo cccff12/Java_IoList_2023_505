@@ -13,12 +13,12 @@ public class ProductDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductDto(String pCode, String pName, String pItem, int plPrice, int pOPrice) {
+	public ProductDto(String pCode, String pName, String pItem, int pIPrice, int pOPrice) {
 		super();
 		this.pCode = pCode;
 		this.pName = pName;
 		this.pItem = pItem;
-		this.pIPrice = plPrice;
+		this.pIPrice = pIPrice;
 		this.pOPrice = pOPrice;
 	}
 
@@ -36,7 +36,9 @@ public class ProductDto {
 //		(int)(oprice/10): 소수점 이하 자르기
 		oprice = Math.round(oprice / 10) * 10; // 소수점 첫자리 반올림
 		this.pOPrice = (int) oprice;
+		this.pIPrice = iprice;
 	}
+
 // pIprice는 변수에 직접 접근 모샇게 private로 선언
 	public int getIPrice() {
 		return this.pIPrice;

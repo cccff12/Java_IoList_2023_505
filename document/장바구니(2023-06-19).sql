@@ -104,6 +104,13 @@ SELECT MAX(buid) FROM tbl_buyer;
 --현재 저장된 데이터 중에 가장 작은 buid값은 얼마냐
 SELECT MIN(buid) from tbl_buyer;
 
+--DROP TABLE tbl_product;
 
-
+CREATE TABLE tbl_product(
+pCode	VARCHAR2(13)		PRIMARY KEY,
+pName	nVARCHAR2(50)	NOT NULL,	
+pItem	nVARCHAR2(10)	NOT NULL,	
+pIPrice	NUMBER,		
+pOPrice	NUMBER		
+);
 
