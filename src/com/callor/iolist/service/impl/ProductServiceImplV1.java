@@ -164,14 +164,59 @@ public class ProductServiceImplV1 implements ProductService {
 
 	@Override
 	public ProductDto findByPCode() {
-		// TODO Auto-generated method stub
-		return null;
+		while (true) {
+			System.out.println(Line.dLine(70));
+			System.out.println("상품정보를 확인합니다");
+			System.out.println("상품코드를 입력해 주세요 QUIT:종료");
+			System.out.println("상품코드 >>");
+			String strPcode = scan.nextLine();
+			if (strPcode.isBlank()) {
+				HelpMessage.ERROR("상품코드을 입력해 주세요");
+				continue;
+			} else if (strPcode.equals("QUIT")) {
+				return null;
+			}
+
+			ProductDto productDto = proDao.findById(strPcode);
+			if (productDto == null) {
+				HelpMessage.ERROR(String.format("상품코드를 찾을 수 없다(%s)", strPcode));
+			} else if (productDto != null) {
+				printProduct(productDto);
+				return productDto;
+			}
+
+		}
+
 	}
 
 	@Override
 	public ProductDto findByPName() {
-		// TODO Auto-generated method stub
-		return null;
+		while (true) {
+
+			System.out.println(Line.dLine(70));
+			System.out.println("상품정보를 확인한다");
+			System.out.println("상품이름을 입력해 주세여 QUIT:종료");
+			System.out.println("상품이름>>");
+			String strPName = scan.nextLine();
+			if (strPName.isBlank()) {
+				HelpMessage.ERROR("상품이름을 입력해 주세요");
+				continue;
+			} else if (strPName.equals("QUIT"))
+				return null;
+
+			List<ProductDto> productList = proDao.findByPName(strPName);
+			if (productList.isEmpty()) {
+				HelpMessage.ERROR(String.format("상품이름을 찾을 수 없습니다 %s", strPName));
+
+			} else if (productList.size() < 2) {
+				return productList.get(0);
+			}
+			this.printList(productList);
+			ProductDto productDto = this.findByPCode();
+			if (productDto != null)
+				return productDto;
+		}
+
 	}
 
 }
