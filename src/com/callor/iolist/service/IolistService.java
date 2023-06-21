@@ -31,7 +31,7 @@ public interface IolistService {
 	public void input();
 	
 //	기간별 리스트
-	public void selectBetwenDate();
+	public void selectBetweenDate();
 
 //	고객별 리스트
 	public void selectByBuyer();
